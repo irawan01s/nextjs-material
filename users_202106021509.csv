@@ -1,0 +1,3 @@
+id,name,userName,password,email,phone,address,birthPlace,birthDate,parentName,createdBy,createdAt,updatedAt,deletedAt
+166ffea0-6ec0-4170-b18c-2857861691b3,Acep Irawan,irawan01s,$2b$12$CZjjFclJmG0WD.ZjNfLVjO2hDTyD1w5sjLKQKCLXkmKVYJdcFSjKW,irawan01s@gmail.com,85861382007,Jl. Awiligar No. 242,Bandung,89/05/20,Farida,05f1475c-e3d5-4bab-9457-7ce7838908a0,21/05/16 10:55,21/05/16 10:55,
+efcd5129-9ede-45de-90d5-73c39d1d04de,Tia Rizki,tiarizkira2,$2a$12$YMi73egAaWlVYBUHnS6q.eUFSNYxZuM9M/MovGUBLtajsfBZ9C/4u,tiarizkira2@gmail.com,85795010333,Jl. Awiligar No. 242,Bandung,92/04/23,Tati,5a1dfcc3-eff5-4025-af37-df530903d8b7,21/05/19 04:37,21/05/19 04:37,

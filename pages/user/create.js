@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
@@ -34,11 +34,21 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CreateUser = () => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const classes = useStyles()
+  const router = useRouter()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (user) => {
+    // console.log(user)
+    const res = await fetch('http://localhost:4000/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    })
+    const data = await res.json()
+    if (data.status) {
+      router.push('/user')
+    }
   }
   return (
     <>
@@ -55,7 +65,6 @@ const CreateUser = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  // component="input"
                   label="Name"
                   id="name"
                   name="name"
@@ -132,7 +141,7 @@ const CreateUser = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Controller
+                {/* <Controller
                   name="birthDate"
                   control={control}
                   defaultValue={null}
@@ -149,15 +158,18 @@ const CreateUser = () => {
                     </MuiPickersUtilsProvider>
                   )
                 }
-                />
-                {/* <TextField
-                  label="Birth Place"
-                  id="birthPlace"
-                  name="birthPlace"
+                /> */}
+                <TextField
+                  label="Birth Date"
+                  id="birthDate"
+                  name="birthDate"
+                  type="date"
                   variant="standard"
                   fullWidth
                   required
-                /> */}
+                  InputLabelProps={{ shrink: true }}
+                  {...register('birthDate')}
+                />
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField

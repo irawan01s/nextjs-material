@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
@@ -12,9 +11,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
     padding: theme.spacing(3),
@@ -52,14 +52,14 @@ const CreateUser = () => {
   }
   return (
     <>
-      <Meta title="Create User" />
+      <Meta title="Add User" />
       <Container component="main" maxWidth="sm">
         <Paper className={classes.paper} elevation={4}>
           <Avatar className={classes.avatar}>
             <AccountCircleIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            New User
+            Add User
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
@@ -68,7 +68,7 @@ const CreateUser = () => {
                   label="Name"
                   id="name"
                   name="name"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   required
                   {...register('name', { required: true })}
@@ -80,7 +80,7 @@ const CreateUser = () => {
                   label="User Name"
                   id="userName"
                   name="userName"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   required
                   {...register('userName', { required: true })}
@@ -93,7 +93,7 @@ const CreateUser = () => {
                   id="password"
                   name="password"
                   type="password"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   {...register('password')}
                 />
@@ -104,7 +104,7 @@ const CreateUser = () => {
                   id="email"
                   name="email"
                   type="email"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   {...register('email')}
                 />
@@ -115,7 +115,7 @@ const CreateUser = () => {
                   id="phone"
                   name="phone"
                   type="number"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   {...register('phone')}
                 />
@@ -125,7 +125,7 @@ const CreateUser = () => {
                   label="Address"
                   id="address"
                   name="address"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   {...register('address')}
                 />
@@ -135,7 +135,7 @@ const CreateUser = () => {
                   label="Birth Place"
                   id="birthPlace"
                   name="birthPlace"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   {...register('birthPlace')}
                 />
@@ -164,7 +164,7 @@ const CreateUser = () => {
                   id="birthDate"
                   name="birthDate"
                   type="date"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   required
                   InputLabelProps={{ shrink: true }}
@@ -176,7 +176,7 @@ const CreateUser = () => {
                   label="Parent Name"
                   id="parentName"
                   name="parentName"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
                   required
                   {...register('parentName')}
@@ -195,7 +195,7 @@ const CreateUser = () => {
             <Grid container justify="flex-end">
               <Grid item>
                 <Link href="/user" variant="body2">
-                  Back To Manage Users
+                  <a>Back To Manage Users</a>
                 </Link>
               </Grid>
             </Grid>

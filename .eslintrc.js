@@ -19,7 +19,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module'
   },
-  plugins: ['react', 'import', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'import'],
   rules: {
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': [2, { commonjs: true, amd: true }],
@@ -29,13 +29,13 @@ module.exports = {
     'import/export': 2,
     'react/destructuring-assignment': 'off',
     'react/display-name': 'off',
-    'react/jsx-props-no-spreading': 'off',
     'react/jsx-boolean-value': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-props-no-spreading': 'off',
+    'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
-    'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/self-closing-comp': ['error', {
       component: true,
       html: true
@@ -46,9 +46,10 @@ module.exports = {
       2,
       { ignoreNonDOM: true }
     ],
-    // ' arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
+    'arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
     'comma-dangle': ['error', 'never'],
     'linebreak-style': 0,
+    'max-len': 'off',
     'no-plusplus': 'off',
     'object-curly-newline': ['error', {
       ObjectExpression: { multiline: true, minProperties: 5 },

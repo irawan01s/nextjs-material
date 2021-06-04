@@ -1,10 +1,6 @@
-import NextLink from 'next/link'
+import List from '@material-ui/core/List'
 import {
-  List, ListItem, ListItemIcon, ListItemText
-} from '@material-ui/core'
-import {
-  ExitToApp as ExitToAppIcon,
-  List as ListIcon,
+  AccountBalance as AccountBalanceIcon,
   MenuBook as MenuBookIcon,
   PeopleAlt as UserIcon
 } from '@material-ui/icons'
@@ -22,25 +18,15 @@ const menus = [
     path: '/user'
   },
   {
-    name: 'Menu',
-    icon: <ListIcon color="secondary" />,
-    path: '/menu'
+    name: 'Bank',
+    icon: <AccountBalanceIcon color="secondary" />,
+    path: '/bank'
   }
 ]
 
-const lastIdx = menus.length + 1
-
 const NavMenu = () => (
-  <List>
+  <List component="nav">
     <NavItem menus={menus} />
-    <NextLink href="/login" key={lastIdx} passHref>
-      <ListItem button component="a">
-        <ListItemIcon>
-          <ExitToAppIcon color="secondary" />
-        </ListItemIcon>
-        <ListItemText primary="Logout" />
-      </ListItem>
-    </NextLink>
   </List>
 )
 

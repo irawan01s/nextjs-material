@@ -35,12 +35,12 @@ function Link(props) {
 
   const router = useRouter()
   const pathname = typeof href === 'string' ? href : href.pathname
-  const className = clsx(classNameProps, {
-    [activeClassName]: router.pathname === pathname && activeClassName
-  })
+  const className = clsx(classNameProps, { [activeClassName]: router.pathname === pathname && activeClassName })
 
   if (naked) {
-    return <NextComposed className={className} ref={innerRef} href={href} {...other} />
+    return (
+      <NextComposed className={className} ref={innerRef} href={href} {...other} />
+    )
   }
 
   return (

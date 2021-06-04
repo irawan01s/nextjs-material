@@ -1,19 +1,17 @@
-import {
-  Avatar,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Paper,
-  Typography
-} from '@material-ui/core'
-import { DataGrid, GridToolbar } from '@material-ui/data-grid'
-import { makeStyles } from '@material-ui/core/styles'
+import Avatar from '@material-ui/core/Avatar'
+import Container from '@material-ui/core/Container'
 import Fab from '@material-ui/core/Fab'
+import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip'
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
+import Typography from '@material-ui/core/Typography'
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
+import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@material-ui/core/styles'
+import { DataGrid, GridToolbar } from '@material-ui/data-grid'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
@@ -26,28 +24,16 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const columns = [
-  { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'userName', headerName: 'User Name', width: 160 },
-  { field: 'email', headerName: 'Email', width: 200 },
-  {
-    field: 'phone',
-    headerName: 'Phone',
-    width: 150
-  },
-  {
-    field: 'address',
-    headerName: 'Addres',
-    flex: 1,
-    sortable: false
-  }
+  { field: 'accountNo', headerName: 'Account No', width: 260 },
+  { field: 'name', headerName: 'Name', width: 260 },
+  { field: 'branch', headerName: 'Branch', flex: 1 }
 ]
 
-const User = ({ users }) => {
+const Bank = ({ banks }) => {
   const classes = useStyles()
-
   return (
     <>
-      <Meta title="User" />
+      <Meta title="Bank" />
       <Container component="main" maxWidth="lg">
         <Paper className={classes.paper}>
           <Grid container spacing={3} justify="space-between">
@@ -55,26 +41,26 @@ const User = ({ users }) => {
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
-                    <PeopleAltIcon />
+                    <AccountBalanceIcon />
                   </Avatar>
                 </ListItemAvatar>
                 <Typography align="justify" variant="h5">
-                  Users
+                  Banks
                 </Typography>
               </ListItem>
             </List>
             <Grid item>
-              <Link href="/user/create">
-                <Tooltip title="Add User" arrow placement="left">
+              <Link href="/bank/create">
+                <Tooltip title="Add Bank" arrow placement="left">
                   <Fab color="secondary" size="small" variant="extended">
-                    <PersonAddIcon />
+                    <AddIcon />
                   </Fab>
                 </Tooltip>
               </Link>
             </Grid>
             <Grid item xs={12} md={12}>
               <DataGrid
-                rows={users}
+                rows={banks}
                 columns={columns}
                 pageSize={5}
                 autoHeight
@@ -90,14 +76,14 @@ const User = ({ users }) => {
 
 export const getServerSideProps = async () => {
   // const uri = process.env.API_URI
-  const res = await fetch('http://localhost:4000/users')
-  const users = await res.json()
+  const res = await fetch('http://localhost:4000/banks')
+  const banks = await res.json()
 
-  if (!users) {
+  if (!banks) {
     return { notFound: true }
   }
 
-  return { props: { users: users.data } }
+  return { props: { banks: banks.data } }
 }
 
-export default User
+export default Bank

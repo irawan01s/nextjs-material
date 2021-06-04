@@ -12,7 +12,7 @@ import { DataGrid, GridToolbar } from '@material-ui/data-grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import Tooltip from '@material-ui/core/Tooltip'
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
+import AddIcon from '@material-ui/icons/Add'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
@@ -67,7 +67,7 @@ const User = ({ users }) => {
               <Link href="/user/create">
                 <Tooltip title="Add User" arrow placement="left">
                   <Fab color="secondary" size="small" variant="extended">
-                    <PersonAddIcon />
+                    <AddIcon />
                   </Fab>
                 </Tooltip>
               </Link>

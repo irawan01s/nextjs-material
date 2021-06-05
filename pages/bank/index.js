@@ -8,10 +8,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import { DataGrid, GridToolbar } from '@material-ui/data-grid'
+import { makeStyles } from '@material-ui/core/styles'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import AddIcon from '@material-ui/icons/Add'
-import { makeStyles } from '@material-ui/core/styles'
-import { DataGrid, GridToolbar } from '@material-ui/data-grid'
+import { teal } from '@material-ui/core/colors'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
@@ -19,8 +20,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: `${theme.spacing(2)}px auto`
-  // color: theme.palette.text.primary,
-  }
+  },
+  avatar: { backgroundColor: teal[400] }
 }))
 
 const columns = [
@@ -40,8 +41,8 @@ const Bank = ({ banks }) => {
             <List dense={true}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar>
-                    <AccountBalanceIcon />
+                  <Avatar variant="rounded" className={classes.avatar}>
+                    <AccountBalanceIcon color="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <Typography align="justify" variant="h5">

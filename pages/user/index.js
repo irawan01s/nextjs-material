@@ -14,6 +14,7 @@ import Fab from '@material-ui/core/Fab'
 import Tooltip from '@material-ui/core/Tooltip'
 import AddIcon from '@material-ui/icons/Add'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
+import { teal } from '@material-ui/core/colors'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
@@ -21,8 +22,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: `${theme.spacing(2)}px auto`
-  // color: theme.palette.text.primary,
-  }
+  },
+  avatar: { backgroundColor: teal[400] }
 }))
 
 const columns = [
@@ -54,8 +55,8 @@ const User = ({ users }) => {
             <List dense={true}>
               <ListItem>
                 <ListItemAvatar>
-                  <Avatar>
-                    <PeopleAltIcon />
+                  <Avatar variant="rounded" className={classes.avatar}>
+                    <PeopleAltIcon color="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <Typography align="justify" variant="h5">

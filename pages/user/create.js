@@ -195,7 +195,7 @@ const CreateUser = () => {
             <Grid container justify="flex-end">
               <Grid item>
                 <Link href="/user" variant="body2">
-                  <a>Back To Manage Users</a>
+                  Back To Manage Users
                 </Link>
               </Grid>
             </Grid>

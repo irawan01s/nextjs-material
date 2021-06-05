@@ -1,13 +1,10 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ThemeProvider } from '@material-ui/core/styles'
-import Layout from '../components/Layouts/Layout'
-import theme from '../src/theme'
+import Layout from '../components/layouts/Layout'
 
 export default function MyApp(props) {
   const { Component, pageProps } = props
-
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
@@ -18,11 +15,9 @@ export default function MyApp(props) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Layout {...pageProps}>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <Layout {...pageProps}>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }

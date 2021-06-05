@@ -1,32 +1,37 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import {
-  AppBar,
-  Badge,
-  CssBaseline,
-  Divider,
-  Drawer,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography
-} from '@material-ui/core'
+import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Switch from '@material-ui/core/Switch'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import Badge from '@material-ui/core/Badge'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import MoreIcon from '@material-ui/icons/MoreVert'
+import {
+  grey,
+  indigo,
+  deepOrange
+} from '@material-ui/core/colors'
 import NavMenu from '../navigation/NavMenu'
 
-const drawerWidth = 200
+const drawerWidth = 240
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: { display: 'flex' },
+  toolbar: { paddingRight: 24 },
+  toolbarIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -42,230 +47,128 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  grow: { flexGrow: 1 },
   menuButton: { marginRight: 36 },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: { display: 'flex' }
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: { display: 'none' }
-  },
-  hide: { display: 'none' },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap'
-  },
-  drawerOpen: {
+  menuButtonHidden: { display: 'none' },
+  title: { flexGrow: 1 },
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen
     })
   },
-  drawerClose: {
+  drawerPaperClose: {
+    overflowX: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    overflowX: 'hidden',
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: { width: theme.spacing(9) + 1 }
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: { width: theme.spacing(9) }
   },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar
-  },
+  appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing(2)
-  }
+    height: '100vh',
+    overflow: 'auto'
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column'
+  },
+  fixedHeight: { height: 240 }
 }))
 
-export default function DashboardLayout({ children }) {
-  const classes = useStyles()
-  const theme = useTheme()
-  const router = useRouter()
+export default function Dashboard({ children }) {
   const [open, setOpen] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [darkState, setDarkState] = useState(false)
+  const palletType = darkState ? 'dark' : 'light'
+  const mainPrimaryColor = darkState ? grey[600] : indigo[600]
+  const mainSecondaryColor = darkState ? indigo[600] : deepOrange[600]
 
-  const isMenuOpen = Boolean(anchorEl)
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
+  const appBarColor = darkState ? 'default' : 'primary'
+  const customTheme = createMuiTheme({
+    palette: {
+      type: palletType,
+      primary: { main: mainPrimaryColor },
+      secondary: { main: mainSecondaryColor }
+    }
+  })
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget)
+  const classes = useStyles()
+  const handleThemeChange = () => {
+    setDarkState(!darkState)
   }
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null)
-  }
-
-  const handleMenuClose = () => {
-    setAnchorEl(null)
-    handleMobileMenuClose()
-  }
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget)
-  }
-
-  const handleDrawerOpen = () => {
+  const handleDrawer = () => {
     setOpen(!open)
   }
 
-  const onLogout = () => {
-    router.push('/login')
-  }
-
-  const menuId = 'primary-search-account-menu'
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={onLogout}>Logout</MenuItem>
-    </Menu>
-  )
-
-  const mobileMenuId = 'primary-search-account-menu-mobile'
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  )
-
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, { [classes.appBarShift]: open })}
-        elevation={0}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, { [classes.hide]: open })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            KOBI BANK
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
+    <ThemeProvider theme={customTheme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+          color={appBarColor}
+        >
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawer}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              Dashboard
+            </Typography>
+            <Switch checked={darkState} onChange={handleThemeChange} />
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{ paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose) }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawer}>
+              <ChevronLeftIcon />
             </IconButton>
           </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerOpen}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <NavMenu />
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {children}
-      </main>
-    </div>
+          <Divider />
+          <NavMenu />
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          {children}
+        </main>
+      </div>
+    </ThemeProvider>
   )
 }

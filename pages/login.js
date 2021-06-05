@@ -1,5 +1,4 @@
 import React from 'react'
-// import Link from 'next/link'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -28,7 +27,7 @@ function Copyright() {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: { height: '100vh' },
   image: {
     backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -59,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles()
-
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />

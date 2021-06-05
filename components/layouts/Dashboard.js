@@ -19,6 +19,7 @@ import {
   deepOrange
 } from '@material-ui/core/colors'
 import NavMenu from '../navigation/NavMenu'
+import Link from '../Link'
 
 const drawerWidth = 240
 
@@ -50,6 +51,10 @@ const useStyles = makeStyles(theme => ({
   menuButton: { marginRight: 36 },
   menuButtonHidden: { display: 'none' },
   title: { flexGrow: 1 },
+  titleText: {
+    color: grey[50],
+    textDecoration: 'none'
+  },
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
@@ -92,7 +97,7 @@ export default function Dashboard({ children }) {
   const [darkState, setDarkState] = useState(false)
   const palletType = darkState ? 'dark' : 'light'
   const mainPrimaryColor = darkState ? grey[600] : indigo[600]
-  const mainSecondaryColor = darkState ? indigo[600] : deepOrange[600]
+  const mainSecondaryColor = darkState ? indigo[300] : deepOrange[600]
 
   const appBarColor = darkState ? 'default' : 'primary'
   const customTheme = createMuiTheme({
@@ -134,15 +139,18 @@ export default function Dashboard({ children }) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              className={classes.title}
-            >
-              Dashboard
-            </Typography>
+            <Link href="/" className={classes.title}>
+              <Typography
+                component="h1"
+                variant="h6"
+                noWrap
+                className={classes.titleText}
+              >
+                {/* <Link href="/"> */}
+                Dashboard
+                {/* </Link> */}
+              </Typography>
+            </Link>
             <Switch checked={darkState} onChange={handleThemeChange} />
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

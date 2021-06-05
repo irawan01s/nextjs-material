@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
+import SaveIcon from '@material-ui/icons/Save'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
@@ -100,6 +101,7 @@ const CreateBank = () => {
               fullWidth
               variant="contained"
               color="primary"
+              startIcon={<SaveIcon />}
               className={classes.submit}
             >
               Save

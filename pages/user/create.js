@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import SaveIcon from '@material-ui/icons/Save'
 import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 import Link from '../../components/Link'
@@ -188,6 +189,7 @@ const CreateUser = () => {
               fullWidth
               variant="contained"
               color="primary"
+              startIcon={<SaveIcon />}
               className={classes.submit}
             >
               Sign Up

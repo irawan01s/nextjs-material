@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import Tooltip from '@material-ui/core/Tooltip'
 import AddIcon from '@material-ui/icons/Add'
+import PeopleIcon from '@material-ui/icons/People'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import { teal } from '@material-ui/core/colors'
 import Link from '../../components/Link'
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 const columns = [
   { field: 'name', headerName: 'Name', width: 200 },
-  { field: 'userName', headerName: 'User Name', width: 160 },
+  { field: 'username', headerName: 'User Name', width: 160 },
   { field: 'email', headerName: 'Email', width: 200 },
   {
     field: 'phone',
@@ -39,13 +40,30 @@ const columns = [
     field: 'address',
     headerName: 'Addres',
     flex: 1,
-    sortable: false
+    sortable: false,
+    renderCell: params => (
+      // console.log(params)
+      // const result = []
+      // if (params.row.address.street) {
+      //   result.push(`street: ${params.row.address.street}`)
+      // }
+      // if (params.row.address.city) {
+      //   result.push(`city: ${params.row.address.city}`)
+      // }
+      // return result.join(', ')
+      <Link naked href={`/user/${params.row.id}/update`}>
+        <Tooltip title="Update" arrow placement="right">
+          <Fab color="secondary" size="small" variant="round">
+            <PeopleIcon />
+          </Fab>
+        </Tooltip>
+      </Link>
+    )
   }
 ]
 
 const User = ({ users }) => {
   const classes = useStyles()
-
   return (
     <>
       <Meta title="User" />
@@ -91,14 +109,14 @@ const User = ({ users }) => {
 
 export const getServerSideProps = async () => {
   // const uri = process.env.API_URI
-  const res = await fetch('http://localhost:4000/users')
+  const res = await fetch('https://jsonplaceholder.typicode.com/users')
   const users = await res.json()
 
   if (!users) {
     return { notFound: true }
   }
 
-  return { props: { users: users.data } }
+  return { props: { users } }
 }
 
 export default User

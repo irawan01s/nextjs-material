@@ -38,8 +38,8 @@ const UpdateUser = ({ user }) => {
   const router = useRouter()
 
   const onSubmit = async (data) => {
-    // console.log(user)
-    const res = await fetch('http://localhost:4000/users', {
+    const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com/'
+    const res = await fetch(`${uri}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -51,7 +51,7 @@ const UpdateUser = ({ user }) => {
   }
   return (
     <>
-      <Meta title="Add User" />
+      <Meta title="Update User" />
       <Container component="main" maxWidth="sm">
         <Paper className={classes.paper} elevation={4}>
           <Avatar className={classes.avatar}>
@@ -80,7 +80,7 @@ const UpdateUser = ({ user }) => {
                   label="User Name"
                   id="userName"
                   name="userName"
-                  value={user.username}
+                  value={user.userName}
                   variant="outlined"
                   fullWidth
                   required
@@ -128,6 +128,7 @@ const UpdateUser = ({ user }) => {
                   label="Address"
                   id="address"
                   name="address"
+                  value={user.address}
                   variant="outlined"
                   fullWidth
                   {...register('address')}
@@ -138,34 +139,18 @@ const UpdateUser = ({ user }) => {
                   label="Birth Place"
                   id="birthPlace"
                   name="birthPlace"
+                  value={user.birthPlace}
                   variant="outlined"
                   fullWidth
                   {...register('birthPlace')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                {/* <Controller
-                  name="birthDate"
-                  control={control}
-                  defaultValue={null}
-                  render={
-                  ({ onChange, value }) => (
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        format="yyyy/MM/dd"
-                        value={value}
-                        onChange={onChange}
-                        KeyboardButtonProps={{ 'aria-label': 'change date' }}
-
-                      />
-                    </MuiPickersUtilsProvider>
-                  )
-                }
-                /> */}
                 <TextField
                   label="Birth Date"
                   id="birthDate"
                   name="birthDate"
+                  value={user.birthDate}
                   type="date"
                   variant="outlined"
                   fullWidth
@@ -179,6 +164,7 @@ const UpdateUser = ({ user }) => {
                   label="Parent Name"
                   id="parentName"
                   name="parentName"
+                  value={user.parentName}
                   variant="outlined"
                   fullWidth
                   required
@@ -211,14 +197,15 @@ const UpdateUser = ({ user }) => {
 }
 
 export async function getServerSideProps(contex) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${contex.params.id}`)
+  const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com/'
+  const res = await fetch(`${uri}/users?id=${contex.params.id}`)
   const user = await res.json()
 
   if (!user) {
     return { notFound: true }
   }
 
-  return { props: { user } }
+  return { props: { user: user.data[0] } }
 }
 
 export default UpdateUser

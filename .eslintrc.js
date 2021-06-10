@@ -36,6 +36,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
+    'react/forbid-prop-types': ['error', { forbid: ['any', 'array'], checkContextTypes: false, ',checkChildContextTypes': false }],
     'react/self-closing-comp': ['error', {
       component: true,
       html: true

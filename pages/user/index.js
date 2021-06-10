@@ -52,6 +52,7 @@ const columns = [
 ]
 
 const User = ({ users }) => {
+  console.log(users)
   const classes = useStyles()
   return (
     <>
@@ -96,9 +97,10 @@ const User = ({ users }) => {
 }
 
 export const getServerSideProps = async () => {
-  const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com/'
+  const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
   const res = await fetch(`${uri}/users`)
   const users = await res.json()
+  console.log(uri)
 
   if (!users) {
     return { notFound: true }

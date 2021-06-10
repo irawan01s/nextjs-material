@@ -40,7 +40,7 @@ const CreateUser = () => {
   const router = useRouter()
 
   const onSubmit = async (user) => {
-    const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com/'
+    const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
     const res = await fetch(`${uri}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

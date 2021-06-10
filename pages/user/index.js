@@ -98,7 +98,11 @@ const User = ({ users }) => {
 
 export const getServerSideProps = async () => {
   const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
-  const res = await fetch(`${uri}/users`)
+  const headers = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  }
+  const res = await fetch(`${uri}/users`, headers)
   const users = await res.json()
   console.log(uri)
 

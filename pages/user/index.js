@@ -97,7 +97,7 @@ const User = ({ users }) => {
 }
 
 export const getServerSideProps = async () => {
-  const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
+  const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
   const headers = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }

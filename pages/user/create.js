@@ -40,12 +40,13 @@ const CreateUser = () => {
   const router = useRouter()
 
   const onSubmit = async (user) => {
-    const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
-    const res = await fetch(`${uri}/users`, {
+    const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+    const headers = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user)
-    })
+    }
+    const res = await fetch(`${uri}/users`, headers)
     const data = await res.json()
     if (data.status) {
       router.push('/user')

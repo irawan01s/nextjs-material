@@ -38,7 +38,7 @@ const UpdateUser = ({ user }) => {
   const router = useRouter()
 
   const onSubmit = async (data) => {
-    const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
+    const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
     const res = await fetch(`${uri}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -197,7 +197,7 @@ const UpdateUser = ({ user }) => {
 }
 
 export async function getServerSideProps(contex) {
-  const uri = process.env.API_URI || 'https://express-mongodb-api.herokuapp.com'
+  const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
   const res = await fetch(`${uri}/users?id=${contex.params.id}`)
   const user = await res.json()
 

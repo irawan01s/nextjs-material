@@ -56,9 +56,9 @@ const fetcher = url => fetch(url).then(res => res.json())
 
 const User = () => {
   const classes = useStyles()
-  const { data, error } = useSWR('/api/user', fetcher)
-  console.log(data)
-  const users = data
+  const { data: users, error } = useSWR('https://fastify-nextjs-api.herokuapp.com/user', fetcher)
+  console.log(users)
+  // const users = data
 
   if (error) return <div>failed to load</div>
   if (!users) return <div>loading...</div>

@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+// import useSWR from 'swr'
 import {
   Avatar,
   Container,
@@ -17,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add'
 import PencilIcon from '@material-ui/icons/Create'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import { teal } from '@material-ui/core/colors'
+// import { useState } from 'react'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
 
@@ -52,16 +53,18 @@ const columns = [
   }
 ]
 
-const fetcher = url => fetch(url).then(res => res.json())
+// const fetcher = url => fetch(url).then(res => res.json())
 
-const User = () => {
+const User = ({ users }) => {
   const classes = useStyles()
-  const { data: users, error } = useSWR('https://fastify-nextjs-api.herokuapp.com/user', fetcher)
-  console.log(users)
-  // const users = data
+  // const [loading, setLoading] = useState(false)
+  // const { data: users, error } = useSWR('/api/user', fetcher)
 
-  if (error) return <div>failed to load</div>
-  if (!users) return <div>loading...</div>
+  // if (error) return <div>failed to load</div>
+  // if (!users) {
+  //   // setLoading(true)
+  //   return <div>Loading...</div>
+  // }
 
   return (
     <>
@@ -105,21 +108,20 @@ const User = () => {
   )
 }
 
-// export const getServerSideProps = async () => {
-//   const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
-//   const headers = {
-//     method: 'GET',
-//     headers: { 'Content-Type': 'application/json' }
-//   }
-//   const res = await fetch(`${uri}/users`, headers)
-//   const users = await res.json()
-//   console.log(uri)
+export const getServerSideProps = async () => {
+  const uri = process.env.API_URI || 'http://fastify-nextjs-api.herokuapp.com'
+  const headers = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  }
+  const res = await fetch(`${uri}/users`, headers)
+  const users = await res.json()
 
-//   if (!users) {
-//     return { notFound: true }
-//   }
+  if (!users) {
+    return { notFound: true }
+  }
 
-//   return { props: { users: users.data } }
-// }
+  return { props: { users: users.data } }
+}
 
 export default User

@@ -274,7 +274,7 @@ export default function EnhancedTable() {
   return (
     <>
       <Meta title="Transaction" />
-      <Container component="main" maxWidth="lg">
+      <Container maxWidth="lg">
         <Paper className={classes.paper}>
           <EnhancedTableToolbar numSelected={selected.length} />
           <TableContainer>

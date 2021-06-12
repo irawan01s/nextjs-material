@@ -1,3 +1,4 @@
+import useSWR from 'swr'
 import {
   Avatar,
   Container,
@@ -51,13 +52,21 @@ const columns = [
   }
 ]
 
-const User = ({ users }) => {
-  console.log(users)
+const fetcher = url => fetch(url).then(res => res.json())
+
+const User = () => {
   const classes = useStyles()
+  const { data, error } = useSWR('/api/user', fetcher)
+  console.log(data)
+  const users = data
+
+  if (error) return <div>failed to load</div>
+  if (!users) return <div>loading...</div>
+
   return (
     <>
       <Meta title="User" />
-      <Container component="main" maxWidth="lg">
+      <Container maxWidth="lg">
         <Paper className={classes.paper}>
           <Grid container spacing={3} justify="space-between">
             <List dense={true}>
@@ -96,21 +105,21 @@ const User = ({ users }) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
-  const headers = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-  }
-  const res = await fetch(`${uri}/users`, headers)
-  const users = await res.json()
-  console.log(uri)
+// export const getServerSideProps = async () => {
+//   const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+//   const headers = {
+//     method: 'GET',
+//     headers: { 'Content-Type': 'application/json' }
+//   }
+//   const res = await fetch(`${uri}/users`, headers)
+//   const users = await res.json()
+//   console.log(uri)
 
-  if (!users) {
-    return { notFound: true }
-  }
+//   if (!users) {
+//     return { notFound: true }
+//   }
 
-  return { props: { users: users.data } }
-}
+//   return { props: { users: users.data } }
+// }
 
 export default User

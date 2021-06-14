@@ -38,7 +38,7 @@ const CreateBank = () => {
   const router = useRouter()
 
   const onSubmit = async (bank) => {
-    const uri = process.env.API_URI
+    const uri = process.env.NEXT_PUBLIC_API_URI
     const res = await fetch(`${uri}/banks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

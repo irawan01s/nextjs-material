@@ -36,9 +36,7 @@ const fetcher = url => fetch(url).then(res => res.json())
 
 const Bank = () => {
   const classes = useStyles()
-  // const uri = process.env.API_URI
   const { data: banks, error } = useSWR('/api/bank', fetcher)
-  console.log(banks, error)
 
   if (error) return <div>failed to load</div>
   if (!banks) return <div><LoadingBackdrop loading={true} /></div>

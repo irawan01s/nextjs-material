@@ -18,6 +18,7 @@ import Meta from '../../components/Meta'
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
@@ -56,7 +57,7 @@ const CreateUser = () => {
     <>
       <Meta title="Add User" />
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={4}>
+        <Paper className={classes.paper} elevation={10}>
           <Avatar className={classes.avatar}>
             <AccountCircleIcon />
           </Avatar>

@@ -16,6 +16,7 @@ import Meta from '../../components/Meta'
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
     padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',

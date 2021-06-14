@@ -109,19 +109,21 @@ const User = ({ users }) => {
 }
 
 export const getServerSideProps = async () => {
-  const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+  const uri = process.env.API_URI
+  console.log(uri)
   const headers = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }
-  const res = await fetch(`${uri}/users`, headers)
-  const users = await res.json()
+  const res = await fetch(`${uri}/users`, headers).then(response => response.json()).then(response => response)
+  const users = await res.data
+  console.log(users)
 
   if (!users) {
     return { notFound: true }
   }
 
-  return { props: { users: users.data } }
+  return { props: { users } }
 }
 
 export default User

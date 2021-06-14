@@ -40,7 +40,7 @@ const CreateUser = () => {
   const router = useRouter()
 
   const onSubmit = async (user) => {
-    const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+    const uri = process.env.API_URI
     const headers = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

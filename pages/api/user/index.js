@@ -1,6 +1,5 @@
 export default async (req, res) => {
   const uri = process.env.API_URI
-  console.log(uri)
   const headers = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }

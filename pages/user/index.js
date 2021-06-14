@@ -1,4 +1,4 @@
-// import useSWR from 'swr'
+import useSWR from 'swr'
 import {
   Avatar,
   Container,
@@ -17,9 +17,9 @@ import AddIcon from '@material-ui/icons/Add'
 import PencilIcon from '@material-ui/icons/Create'
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import { teal } from '@material-ui/core/colors'
-// import { useState } from 'react'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
+import LoadingBackdrop from '../../components/Backdrop'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -53,19 +53,14 @@ const columns = [
   }
 ]
 
-// const fetcher = url => fetch(url).then(res => res.json())
+const fetcher = url => fetch(url).then(res => res.json())
 
-const User = ({ users }) => {
+const User = () => {
   const classes = useStyles()
-  // const [loading, setLoading] = useState(false)
-  // const { data: users, error } = useSWR('/api/user', fetcher)
+  const { data: users, error } = useSWR('/api/user', fetcher)
 
-  // if (error) return <div>failed to load</div>
-  // if (!users) {
-  //   // setLoading(true)
-  //   return <div>Loading...</div>
-  // }
-
+  if (error) return <div>failed to load</div>
+  if (!users) return <div><LoadingBackdrop loading={true} /></div>
   return (
     <>
       <Meta title="User" />
@@ -108,22 +103,20 @@ const User = ({ users }) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const uri = process.env.API_URI
-  console.log(uri)
-  const headers = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-  }
-  const res = await fetch(`${uri}/users`, headers).then(response => response.json()).then(response => response)
-  const users = await res.data
-  console.log(users)
+// export const getServerSideProps = async () => {
+//   const uri = process.env.API_URI
+//   const headers = {
+//     method: 'GET',
+//     headers: { 'Content-Type': 'application/json' }
+//   }
+//   const users = await fetch(`${uri}/users`, headers).then(response => response.json()).then(response => response.data)
+//   // const users = await res.data
 
-  if (!users) {
-    return { notFound: true }
-  }
+//   if (!users) {
+//     return { notFound: true }
+//   }
 
-  return { props: { users } }
-}
+//   return { props: { users } }
+// }
 
 export default User

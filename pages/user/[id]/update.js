@@ -197,7 +197,7 @@ const UpdateUser = ({ user }) => {
 }
 
 export async function getServerSideProps(contex) {
-  const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+  const uri = process.env.API_URI
   const res = await fetch(`${uri}/users?id=${contex.params.id}`)
   const user = await res.json()
 

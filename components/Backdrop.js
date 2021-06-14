@@ -18,7 +18,7 @@ const LoadingBackdrop = ({ loading }) => {
   }
   return (
     <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-      <CircularProgress color="inherit" />
+      <CircularProgress color="secondary" />
     </Backdrop>
   )
 }

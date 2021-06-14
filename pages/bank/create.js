@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3)
   },
   submit: { margin: theme.spacing(3, 0, 2) }
@@ -38,7 +38,8 @@ const CreateBank = () => {
   const router = useRouter()
 
   const onSubmit = async (bank) => {
-    const res = await fetch('http://localhost:4000/banks', {
+    const uri = process.env.API_URI
+    const res = await fetch(`${uri}/banks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bank)

@@ -1,3 +1,4 @@
+import useSWR from 'swr'
 import Avatar from '@material-ui/core/Avatar'
 import Container from '@material-ui/core/Container'
 import Fab from '@material-ui/core/Fab'
@@ -15,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { teal } from '@material-ui/core/colors'
 import Link from '../../components/Link'
 import Meta from '../../components/Meta'
+import LoadingBackdrop from '../../components/Backdrop'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -30,8 +32,17 @@ const columns = [
   { field: 'branch', headerName: 'Branch', flex: 1 }
 ]
 
-const Bank = ({ banks }) => {
+const fetcher = url => fetch(url).then(res => res.json())
+
+const Bank = () => {
   const classes = useStyles()
+  // const uri = process.env.API_URI
+  const { data: banks, error } = useSWR('/api/bank', fetcher)
+  console.log(banks, error)
+
+  if (error) return <div>failed to load</div>
+  if (!banks) return <div><LoadingBackdrop loading={true} /></div>
+
   return (
     <>
       <Meta title="Bank" />
@@ -75,16 +86,16 @@ const Bank = ({ banks }) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  // const uri = process.env.API_URI
-  const res = await fetch('http://localhost:4000/banks')
-  const banks = await res.json()
+// export const getServerSideProps = async () => {
+//   const uri = process.env.API_URI
+//   const res = await fetch(`${uri}/banks`)
+//   const banks = await res.json()
 
-  if (!banks) {
-    return { notFound: true }
-  }
+//   if (!banks) {
+//     return { notFound: true }
+//   }
 
-  return { props: { banks: banks.data } }
-}
+//   return { props: { banks: banks.data } }
+// }
 
 export default Bank

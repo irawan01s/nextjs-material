@@ -61,6 +61,7 @@ const User = () => {
 
   if (error) return <div>failed to load</div>
   if (!users) return <div><LoadingBackdrop loading={true} /></div>
+
   return (
     <>
       <Meta title="User" />

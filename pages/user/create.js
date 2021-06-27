@@ -41,7 +41,7 @@ const CreateUser = () => {
   const router = useRouter()
 
   const onSubmit = async (user) => {
-    const uri = process.env.API_URI
+    const uri = process.env.NEXT_PUBLIC_API_URI
     const headers = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

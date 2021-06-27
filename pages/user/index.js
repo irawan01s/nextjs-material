@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+// import useSWR from 'swr'
 import {
   Avatar,
   Container,
@@ -53,13 +53,13 @@ const columns = [
   }
 ]
 
-const fetcher = url => fetch(url).then(res => res.json())
+// const fetcher = url => fetch(url).then(res => res.json())
 
-const User = () => {
+const User = ({ users }) => {
   const classes = useStyles()
-  const { data: users, error } = useSWR('/api/user', fetcher)
+  // const { data: users, error } = useSWR('/api/user', fetcher)
 
-  if (error) return <div>failed to load</div>
+  // if (error) return <div>failed to load</div>
   if (!users) return <div><LoadingBackdrop loading={true} /></div>
 
   return (
@@ -102,6 +102,17 @@ const User = () => {
       </Container>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const uri = process.env.API_URI
+  const res = await fetch(`${uri}/users`).then(u => u.json())
+  const users = res.data
+
+  return {
+    props: { users },
+    revalidate: 1
+  }
 }
 
 // export const getServerSideProps = async () => {

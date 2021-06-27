@@ -38,7 +38,7 @@ const UpdateUser = ({ user }) => {
   const router = useRouter()
 
   const onSubmit = async (data) => {
-    const uri = process.env.API_URI || 'https://fastify-nextjs-api.herokuapp.com'
+    const uri = process.env.NEXT_PUBLIC_API_URI || 'https://fastify-nextjs-api.herokuapp.com'
     const res = await fetch(`${uri}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -196,16 +196,40 @@ const UpdateUser = ({ user }) => {
   )
 }
 
-export async function getServerSideProps(contex) {
+export async function getStaticPaths() {
   const uri = process.env.API_URI
-  const res = await fetch(`${uri}/users?id=${contex.params.id}`)
-  const user = await res.json()
+  const res = await fetch(`${uri}/users`).then(u => u.json())
+  const user = res.data
 
-  if (!user) {
-    return { notFound: true }
+  const paths = user.map(e => ({ params: { id: e.id } }))
+
+  return {
+    paths,
+    fallback: true
   }
-
-  return { props: { user: user.data[0] } }
 }
+
+export async function getStaticProps({ params }) {
+  const uri = process.env.API_URI
+  const res = await fetch(`${uri}/users?id=${params.id}`).then(u => u.json())
+  const user = res.data[0]
+
+  return {
+    props: { user },
+    revalidate: 1
+  }
+}
+
+// export async function getServerSideProps(contex) {
+//   const uri = process.env.API_URI
+//   const res = await fetch(`${uri}/users?id=${contex.params.id}`)
+//   const user = await res.json()
+
+//   if (!user) {
+//     return { notFound: true }
+//   }
+
+//   return { props: { user: user.data[0] } }
+// }
 
 export default UpdateUser

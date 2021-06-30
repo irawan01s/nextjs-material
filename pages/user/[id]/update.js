@@ -196,19 +196,6 @@ const UpdateUser = ({ user }) => {
   )
 }
 
-export async function getStaticPaths() {
-  const uri = process.env.API_URI
-  const res = await fetch(`${uri}/users`).then(u => u.json())
-  const user = res.data
-
-  const paths = user.map(e => ({ params: { id: e.id } }))
-
-  return {
-    paths,
-    fallback: true
-  }
-}
-
 export async function getStaticProps({ params }) {
   const uri = process.env.API_URI
   const res = await fetch(`${uri}/users?id=${params.id}`).then(u => u.json())
@@ -217,6 +204,19 @@ export async function getStaticProps({ params }) {
   return {
     props: { user },
     revalidate: 1
+  }
+}
+
+export async function getStaticPaths() {
+  const uri = process.env.API_URI
+  const res = await fetch(`${uri}/users`).then(u => u.json())
+  const users = res.data
+
+  const paths = users.map(({ id }) => ({ params: { id: `${id}` } }))
+
+  return {
+    paths,
+    fallback: false
   }
 }
 
